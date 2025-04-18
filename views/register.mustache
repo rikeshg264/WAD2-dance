@@ -1,0 +1,45 @@
+{{> header }}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh; background-color: #f8f9fa;">
+  <div class="form-card p-4 bg-white shadow rounded" style="max-width: 500px; width: 100%;">
+    <h2 class="text-center mb-4">Register</h2>
+
+    <form action="/register" method="POST">
+      <div class="mb-3">
+        <input type="text" name="fullname" class="form-control" placeholder="Full Name" required>
+      </div>
+
+      <div class="mb-3">
+        <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+      </div>
+
+      <div class="mb-3">
+        <input type="text" name="username" class="form-control" placeholder="Choose a Username" required>
+      </div>
+
+      <div class="mb-3">
+        <input type="password" name="password" class="form-control" placeholder="Create a Password" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="role" class="form-label">Select Role:</label>
+        <select name="role" class="form-select" required>
+          <option value="user">User</option>
+          <option value="organiser">Organiser</option>
+        </select>
+      </div>
+
+      {{#error}}<p class="text-danger text-center mt-2">{{error}}</p>{{/error}}
+
+      <div class="d-grid mt-3">
+        <button type="submit" class="btn btn-success">Register</button>
+      </div>
+    </form>
+
+    <p class="mt-3 text-center">
+      Already have an account? <a href="/login">Login here</a>
+    </p>
+  </div>
+</div>
+
+{{> footer }}

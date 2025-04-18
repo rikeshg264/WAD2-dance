@@ -1,0 +1,87 @@
+{{> header }}
+
+<div class="container my-5">
+  <h2 class="mb-4 text-center">Edit Course</h2>
+
+  <form method="POST" action="/courses/edit/{{course._id}}" enctype="multipart/form-data" class="card shadow p-4 mx-auto" style="max-width: 700px;">
+    <div class="mb-3">
+      <label for="name" class="form-label">Course Name</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{course.name}}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="3" required>{{course.description}}</textarea>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="duration" class="form-label">Duration</label>
+        <input type="text" class="form-control" id="duration" name="duration" value="{{course.duration}}" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="price" class="form-label">Price (£)</label>
+        <input type="number" class="form-control" id="price" name="price" value="{{course.price}}" required>
+      </div>
+    </div>
+
+    <!-- ✅ Current Image Preview -->
+    {{#course.image}}
+      <div class="mb-3 text-center">
+        <label class="form-label">Current Image:</label><br>
+        <img src="{{course.image}}" alt="{{course.name}}" class="img-fluid rounded shadow-sm" style="max-height: 200px; object-fit: cover;">
+      </div>
+    {{/course.image}}
+
+    <!-- ✅ Upload New Image -->
+    <div class="mb-3">
+      <label for="photo" class="form-label">Replace Image</label>
+      <input type="file" class="form-control" name="photo" id="photo" accept="image/*">
+      <small class="form-text text-muted">Leave blank to keep current image.</small>
+    </div>
+
+    <h4 class="mt-4 mb-3">Class Sessions</h4>
+    <div id="classContainer">
+      {{#course.classes}}
+        <div class="row classBlock mb-3">
+          <div class="col-md-4">
+            <input type="date" class="form-control" name="dates" value="{{date}}" required>
+          </div>
+          <div class="col-md-4">
+            <input type="time" class="form-control" name="times" value="{{time}}" required>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" name="locations" value="{{location}}" required placeholder="Location">
+          </div>
+        </div>
+      {{/course.classes}}
+    </div>
+
+    <div class="d-flex justify-content-between mt-3">
+      <button type="button" class="btn btn-outline-primary" onclick="addClassBlock()">+ Add Class</button>
+      <button type="submit" class="btn btn-success">💾 Save Changes</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  function addClassBlock() {
+    const container = document.getElementById('classContainer');
+    const block = document.createElement('div');
+    block.classList.add('row', 'classBlock', 'mb-3');
+    block.innerHTML = `
+      <div class="col-md-4">
+        <input type="date" class="form-control" name="dates" required>
+      </div>
+      <div class="col-md-4">
+        <input type="time" class="form-control" name="times" required>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" name="locations" placeholder="Location" required>
+      </div>
+    `;
+    container.appendChild(block);
+  }
+</script>
+
+{{> footer }}

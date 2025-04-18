@@ -1,0 +1,77 @@
+{{> header }}
+
+<div class="container my-5">
+  <div class="card shadow p-4 mx-auto" style="max-width: 700px;">
+    <h2 class="text-center mb-4">Add New Course</h2>
+
+    <form method="POST" action="/courses/add" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="text" name="name" class="form-control" placeholder="Course Name" required>
+      </div>
+
+      <div class="mb-3">
+        <textarea name="description" class="form-control" placeholder="Description" rows="3" required></textarea>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <input type="text" name="duration" class="form-control" placeholder="Duration (e.g. 6 weeks)" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <input type="number" name="price" class="form-control" placeholder="Price (£)" required>
+        </div>
+      </div>
+
+      <!-- other inputs... -->
+      <div class="mb-3">
+       <label for="photo" class="form-label">Course Image</label>
+       <input type="file" name="photo" class="form-control" accept="image/*" required>
+      </div>
+
+
+  <!-- submit button -->
+
+      <h5 class="mt-4">Class Sessions:</h5>
+      <div id="classContainer">
+        <div class="row classBlock mb-3">
+          <div class="col-md-4">
+            <input type="date" class="form-control" name="dates" required>
+          </div>
+          <div class="col-md-4">
+            <input type="time" class="form-control" name="times" required>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" name="locations" placeholder="Location" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <button type="button" class="btn btn-outline-primary" onclick="addClassBlock()">+ Add Another Class</button>
+        <button type="submit" class="btn btn-success">📚 Add Course</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function addClassBlock() {
+    const container = document.getElementById('classContainer');
+    const block = document.createElement('div');
+    block.classList.add('row', 'classBlock', 'mb-3');
+    block.innerHTML = `
+      <div class="col-md-4">
+        <input type="date" class="form-control" name="dates" required>
+      </div>
+      <div class="col-md-4">
+        <input type="time" class="form-control" name="times" required>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" name="locations" placeholder="Location" required>
+      </div>
+    `;
+    container.appendChild(block);
+  }
+</script>
+
+{{> footer }}

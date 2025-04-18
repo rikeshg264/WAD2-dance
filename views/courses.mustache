@@ -1,0 +1,60 @@
+{{> header }}
+
+<div class="container my-5">
+  <h2 class="text-center mb-4">Available Courses</h2>
+
+  <div class="row">
+    {{#courses}}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+
+          {{#image}}
+            <img src="{{image}}" alt="{{name}}" class="card-img-top" style="height: 200px; object-fit: fit;">
+          {{/image}}
+
+
+          <div class="card-body">
+            <h5 class="card-title">{{name}} <span class="text-muted">– £{{price}}</span></h5>
+            <p class="card-text">{{description}}</p>
+            <p class="mb-1"><strong>Duration:</strong> {{duration}}</p>
+
+            <p class="mb-1"><strong>Class Schedule:</strong></p>
+            <ul class="list-unstyled ps-3 mb-3">
+              {{#classes}}
+                <li>📅 {{date}} at 🕒 {{time}} – 📍 {{location}}</li>
+              {{/classes}}
+            </ul>
+
+            {{#isOrganiser}}
+              <div class="d-grid gap-2">
+                <a href="/courses/{{_id}}/participants" class="btn btn-outline-secondary">👥 View Participants</a>
+                <a href="/courses/edit/{{_id}}" class="btn btn-outline-primary">✏️ Edit</a>
+                <a href="/courses/delete/{{_id}}" class="btn btn-outline-danger">🗑️ Delete</a>
+              </div>
+            {{/isOrganiser}}
+
+            {{^isOrganiser}}
+              <form method="POST" action="/enrol/{{_id}}">
+                <div class="d-grid mt-3">
+                  <button type="submit" class="btn btn-success">🎟 Enrol</button>
+                </div>
+              </form>
+            {{/isOrganiser}}
+          </div>
+        </div>
+      </div>
+    {{/courses}}
+
+    {{^courses}}
+      <div class="col-12">
+        <p class="text-center text-muted">No courses available at the moment. Please check back later.</p>
+      </div>
+    {{/courses}}
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-outline-dark">🏠 Back to Home</a>
+  </div>
+</div>
+
+{{> footer }}

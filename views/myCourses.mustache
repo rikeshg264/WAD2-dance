@@ -1,0 +1,49 @@
+{{> header }}
+
+<div class="container my-5">
+  <h2 class="text-center mb-4">My Enrolled Courses</h2>
+
+  {{#courses.length}}
+    <div class="row">
+      {{#courses}}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+          {{#image}}
+            <img src="{{image}}" alt="{{name}}" class="card-img-top" style="height: 200px; object-fit: fit;">
+          {{/image}}
+            <div class="card-body">
+              <h5 class="card-title">{{name}} <span class="text-muted">– £{{price}}</span></h5>
+              <p class="card-text">{{description}}</p>
+              <p><strong>Duration:</strong> {{duration}}</p>
+
+              <p class="mb-1"><strong>Class Schedule:</strong></p>
+              <ul class="list-unstyled ps-3 mb-3">
+                {{#classes}}
+                  <li>📅 {{date}} at 🕒 {{time}} – 📍 {{location}}</li>
+                {{/classes}}
+              </ul>
+
+              <form method="POST" action="/my-courses/unenrol/{{_id}}">
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-danger">🚫 Unenrol</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      {{/courses}}
+    </div>
+  {{/courses.length}}
+
+  {{^courses.length}}
+    <div class="text-center text-muted mt-5">
+      <p>You are not enrolled in any courses.</p>
+    </div>
+  {{/courses.length}}
+
+  <div class="text-center mt-4">
+    <a href="/dashboard" class="btn btn-outline-secondary">⬅ Back to Dashboard</a>
+  </div>
+</div>
+
+{{> footer }}

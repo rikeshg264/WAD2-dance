@@ -1,0 +1,53 @@
+{{> header }}
+
+<div class="container my-5">
+  <div class="card shadow p-4">
+    <h2 class="mb-4 text-center">Manage Users</h2>
+
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Username</th>
+            <th class="text-center">Make Organiser</th>
+            <th class="text-center">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#users}}
+            <tr>
+              <td>{{username}}</td>
+              <td class="text-center">
+                {{^isOrganiser}}
+                  <form method="POST" action="/make-organiser/{{_id}}" class="d-inline">
+                    <button type="submit" class="btn btn-outline-primary btn-sm">Make Organiser</button>
+                  </form>
+                {{/isOrganiser}}
+                {{#isOrganiser}}
+                  <span class="badge bg-success">Organiser</span>
+                {{/isOrganiser}}
+              </td>
+              <td class="text-center">
+                <form method="POST" action="/delete-user/{{_id}}" class="d-inline">
+                  <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {{/users}}
+
+          {{^users}}
+            <tr>
+              <td colspan="3" class="text-center text-muted">No users found.</td>
+            </tr>
+          {{/users}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-center mt-3">
+      <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+  </div>
+</div>
+
+{{> footer }}

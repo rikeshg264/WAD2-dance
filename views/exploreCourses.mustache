@@ -1,0 +1,54 @@
+{{> header }}
+
+<div class="container my-5">
+  <h2 class="text-center mb-4">Explore Courses</h2>
+
+  {{#error}}
+    <div class="alert alert-danger text-center">{{.}}</div>
+  {{/error}}
+
+  {{#success}}
+    <div class="alert alert-success text-center">{{.}}</div>
+  {{/success}}
+
+  <div class="row">
+    {{#courses}}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{name}} <span class="text-muted">– £{{price}}</span></h5>
+            <p class="card-text">{{description}}</p>
+            <p><strong>Duration:</strong> {{duration}}</p>
+
+            <p><strong>Class Schedule:</strong></p>
+            <ul class="list-unstyled ps-3 mb-3">
+              {{#classes}}
+                <li>📅 {{date}} at 🕒 {{time}} – 📍 {{location}}</li>
+              {{/classes}}
+            </ul>
+
+            {{#user}}
+              <form method="POST" action="/enrol/{{_id}}">
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-success">🎟 Enroll</button>
+                </div>
+              </form>
+            {{/user}}
+          </div>
+        </div>
+      </div>
+    {{/courses}}
+
+    {{^courses}}
+      <div class="col-12 text-center text-muted">
+        <p>No courses available at the moment. Check back soon!</p>
+      </div>
+    {{/courses}}
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-outline-dark">🏠 Back to Home</a>
+  </div>
+</div>
+
+{{> footer }}
